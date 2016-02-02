@@ -4,7 +4,7 @@ def check_guess(u, c)
   elsif u < c
     return "low"
   else
-    return "true"
+    return "match"
   end
 end
 
@@ -22,20 +22,19 @@ computer = rand(1..100)
 guesses = []
 
 5.times do |n|
-
   puts "Try and guess my number between 1 and 100"
   guesses[n] = gets.chomp.to_i
-
   if repeat_guess?(n, guesses)
     puts "Really, repeating guesses? Okay.."
   end
-  if check_guess(guesses[n], computer) == "true"
+  if check_guess(guesses[n], computer) == "match"
     puts "Correctamundo, #{guesses[n]} is the right number!"
     break
-  elsif n == 4
-      puts "Sorry, you lose. The correct number was #{computer}"
   else
+    if n == 4
+      puts "Sorry, you lose. The correct number was #{computer}"
+    else
       puts "Too #{check_guess(guesses[n], computer)}"
+    end
   end
-
 end
