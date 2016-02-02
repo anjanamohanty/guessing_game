@@ -8,7 +8,7 @@ def check_guess(u, c)
   end
 end
 
-def repeat_guess?(n, guesses)
+def is_repeat_guess?(n, guesses)
   (guesses.length - 1).times do |i|
     if guesses[i] == guesses[n]
       return true
@@ -18,13 +18,17 @@ def repeat_guess?(n, guesses)
   return false
 end
 
-computer = rand(1..100)
+def generate_random_number
+  return (Time.now.sec.to_f / 60 * 100).round
+end
+
+computer = generate_random_number
 guesses = []
 
 5.times do |n|
   puts "Try and guess my number between 1 and 100"
   guesses[n] = gets.chomp.to_i
-  if repeat_guess?(n, guesses)
+  if is_repeat_guess?(n, guesses)
     puts "Really, repeating guesses? Okay.."
   end
   if check_guess(guesses[n], computer) == "match"
