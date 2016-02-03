@@ -9,22 +9,24 @@ def bsearch(range, guesses)
 
   if user_input == "yes"
     return "#{range[mid_index]} is your number!"
+  elsif is_lying?(mid_index, user_input, range)
+    return "Lies and deceit!"
+  elsif user_input == "lower"
+    bsearch(range[0..(mid_index - 1)], (guesses - 1))
+  elsif user_input == "higher"
+    bsearch(range[(mid_index + 1)..(range.length - 1)], (guesses - 1))
+  end
+end
+
+def is_lying?(mid_index, user_input, range)
+  if mid_index == 0
+    return true
+  elsif user_input == "lower" && (range[mid_index] == range.first)
+    return true
+  elsif user_input == "higher" && (range[mid_index] == range.last)
+    return true
   else
-    if mid_index == 0
-      puts "Lies and deceit!"
-    elsif user_input == "lower"
-      if range[mid_index] == range.first
-        puts "Lies and deceit!"
-      else
-        bsearch(range[0..(mid_index - 1)], (guesses - 1))
-      end
-    else
-      if range[mid_index] == range.last
-        puts "Lies and deceit"
-      else
-        bsearch(range[(mid_index + 1)..(range.length - 1)], (guesses - 1))
-      end
-    end
+    return false
   end
 end
 
